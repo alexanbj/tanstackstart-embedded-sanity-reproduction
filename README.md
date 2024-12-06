@@ -1,8 +1,13 @@
 # A reproduction repo for bug when embedding a Sanity studio in TanStack start
 
 This is a reproduction of an issue that occurs when embedding a sanity studio in a tanstack start application.
-
+`
 The issue only seems to affect the dev server. Production builds just fine
+
+The output of the build and dev steps when running with `TSR_VITE_DEBUG=TRUE`
+
+- [build-output.txt](./build-output.txt)
+- [dev-output.txt](./dev-output.txt)
 
 ## Steps
 

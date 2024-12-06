@@ -12,7 +12,6 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as SanityImport } from './routes/sanity'
-import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
@@ -22,23 +21,10 @@ const SanityRoute = SanityImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
     '/sanity': {
       id: '/sanity'
       path: '/sanity'
@@ -52,37 +38,32 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/sanity': typeof SanityRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/sanity': typeof SanityRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
   '/sanity': typeof SanityRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sanity'
+  fullPaths: '/sanity'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sanity'
-  id: '__root__' | '/' | '/sanity'
+  to: '/sanity'
+  id: '__root__' | '/sanity'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
   SanityRoute: typeof SanityRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
   SanityRoute: SanityRoute,
 }
 
@@ -96,12 +77,8 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
         "/sanity"
       ]
-    },
-    "/": {
-      "filePath": "index.tsx"
     },
     "/sanity": {
       "filePath": "sanity.tsx"
